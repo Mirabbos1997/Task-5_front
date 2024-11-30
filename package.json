@@ -1,0 +1,23 @@
+{
+  "name": "bookstore-frontend-task-complete",
+  "version": "1.0.0",
+  "description": "Task Complete Frontend for Book Store Testing Application",
+  "main": "main.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "axios": "^1.4.0",
+    "papaparse": "^5.4.1"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "ISC"
+}
