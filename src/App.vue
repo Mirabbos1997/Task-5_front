@@ -16,20 +16,16 @@
       @load-more="loadMoreBooks"
       @export-csv="exportBooksToCSV"
     />
-    <GalleryView
-      v-else
-      :books="books"
-      :isLoading="isLoading"
-    />
+    <GalleryView v-else :books="books" :isLoading="isLoading" />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Controls from './components/Controls.vue';
-import BookTable from './components/BookTable.vue';
-import GalleryView from './components/GalleryView.vue';
-import Papa from 'papaparse';
+import axios from "axios";
+import Controls from "./components/Controls.vue";
+import BookTable from "./components/BookTable.vue";
+import GalleryView from "./components/GalleryView.vue";
+import Papa from "papaparse";
 
 export default {
   components: {
@@ -39,31 +35,35 @@ export default {
   },
   data() {
     return {
-      languages: ['en_US', 'de', 'fr'],
-      seed: 'default-seed',
+      languages: ["en_US", "de", "fr"],
+      seed: "default-seed",
       page: 1,
-      lang: 'en_US',
+      lang: "en_US",
       avgLikes: 5,
       avgReviews: 5,
       books: [],
       isLoading: false,
-      viewMode: 'table',
+      viewMode: "table",
     };
   },
   methods: {
     async fetchBooks() {
       this.isLoading = true;
       try {
-        const response = await axios.post('http://localhost:3000/api/books', {
-          seed: this.seed,
-          page: this.page,
-          lang: this.lang,
-          avgLikes: this.avgLikes,
-          avgReviews: this.avgReviews,
-        });
-        this.books = this.page === 1 ? response.data : [...this.books, ...response.data];
+        const response = await axios.post(
+          "https://task-5-nmvs.onrender.com/api/books",
+          {
+            seed: this.seed,
+            page: this.page,
+            lang: this.lang,
+            avgLikes: this.avgLikes,
+            avgReviews: this.avgReviews,
+          }
+        );
+        this.books =
+          this.page === 1 ? response.data : [...this.books, ...response.data];
       } catch (error) {
-        console.error('Error fetching books:', error);
+        console.error("Error fetching books:", error);
       } finally {
         this.isLoading = false;
       }
@@ -87,11 +87,11 @@ export default {
     },
     exportBooksToCSV() {
       const csv = Papa.unparse(this.books);
-      const blob = new Blob([csv], { type: 'text/csv' });
+      const blob = new Blob([csv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.download = 'books.csv';
+      link.download = "books.csv";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
